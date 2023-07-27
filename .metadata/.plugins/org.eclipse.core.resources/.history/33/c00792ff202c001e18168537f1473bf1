@@ -1,0 +1,9 @@
+package juegoAhorcadito;
+
+public class Jugador {
+	private String nombre;
+	private int puntaje;
+	private int totalPartidasJugadas;
+	private int totalPartidasGanadas;
+	private int totalPartidasPerdidas;
+}
