@@ -1,0 +1,77 @@
+package juegoAhorcadito;
+
+import java.util.HashSet;
+
+public class JuegoAhorcado {
+    private String palabra;
+    private int intentosMaximos;
+    private int intentosRealizados;
+    private HashSet<Character> letrasAdivinadas;
+    private char[] estadoPalabra;
+    
+    
+
+    public int getIntentosMaximos() {
+		return intentosMaximos;
+	}
+
+	public void setIntentosMaximos(int intentosMaximos) {
+		this.intentosMaximos = intentosMaximos;
+	}
+
+	public int getIntentosRealizados() {
+		return intentosRealizados;
+	}
+
+	public void setIntentosRealizados(int intentosRealizados) {
+		this.intentosRealizados = intentosRealizados;
+	}
+
+	public JuegoAhorcado(String palabra) {
+        this.palabra = palabra.toLowerCase();
+        this.intentosMaximos = 6;
+        this.intentosRealizados = 0;
+        this.letrasAdivinadas = new HashSet<>();
+        this.estadoPalabra = new char[palabra.length()];
+        for (int i = 0; i < palabra.length(); i++) {
+            char letra = palabra.charAt(i);
+            estadoPalabra[i] = Character.isLetter(letra) ? '_' : letra;
+        }
+    }
+
+    public String mostrarPalabra() {
+        return new String(estadoPalabra);
+    }
+
+    public String intentarLetra(char letra) {
+        letra = Character.toLowerCase(letra);
+        if (letrasAdivinadas.contains(letra)) {
+            return "Ya has intentado esta letra antes.";
+        }
+
+        letrasAdivinadas.add(letra);
+
+        boolean letraEncontrada = false;
+        for (int i = 0; i < palabra.length(); i++) {
+            if (palabra.charAt(i) == letra) {
+                estadoPalabra[i] = letra;
+                letraEncontrada = true;
+            }
+        }
+
+        if (!letraEncontrada) {
+            intentosRealizados++;
+            if (intentosRealizados >= intentosMaximos) {
+                return "Has perdido. La palabra era: " + palabra;
+            } else {
+                return "La letra no está en la palabra. Te quedan " + (intentosMaximos - intentosRealizados) + " intentos.";
+            }
+        } else {
+            if (new String(estadoPalabra).equals(palabra)) {
+                return "¡Felicidades! Has adivinado la palabra: " + palabra;
+            } else {
+                return "¡Bien hecho! La letra está en la palabra: " + mostrarPalabra();
+            }
+        }
+    }
+}

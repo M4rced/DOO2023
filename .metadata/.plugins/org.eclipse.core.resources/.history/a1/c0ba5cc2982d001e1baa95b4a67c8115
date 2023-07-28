@@ -1,0 +1,15 @@
+package juegoAhorcadito;
+
+public class Jugador {
+	  private String nombre;
+
+	    public Jugador(String nombre) {
+	        this.nombre = nombre;
+	    }
+
+	    public char adivinarLetra() {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print(nombre + ", ingresa una letra: ");
+	        return scanner.next().toLowerCase().charAt(0);
+	    }
+}
